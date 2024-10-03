@@ -42,12 +42,28 @@
             <img src="./img/logo-white.png" alt="logo" class="navbar-logo-img">
           </a>
 
-          <button>
-            Mejores cabañas en Bariloche 
+          <!-- Add a hamburger menu icon for mobile -->
+          <button class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
+
+          <!-- Wrap the button in a div for easier mobile styling -->
+          <div class="nav-buttons">
+            <button class="best-cabins-button">
+              Mejores cabañas en Bariloche
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
+    <div class="f-space"></div>
     <div class="container ">
       <div class="header-content">
         <h1 class="cabin-title d-flex">Cabañas Cocos Curá <img src="./img/check.svg" alt="check" class="check-icon">
@@ -90,15 +106,17 @@
   </div>
   <div class="container">
 
-    <div class="container">
+    <div class="cabin-container">
 
       <div class="cabana-info-container">
         <div class="cabana-info">
-          <div class="tabs">
+          <div class="tabs-container">
+            <div class="tabs">
             <a href="#section-1" class="active">Descripción cabañas</a>
             <a href="#section-2">Servicios</a>
             <a href="#section-3">Imágenes</a>
-            <a href="#section-4">Ubicación</a>
+              <a href="#section-4">Ubicación</a>
+            </div>
           </div>
 
           <div id="section-1" class="description">
@@ -184,13 +202,19 @@
             <!-- map container -->
             <div class="map-wrapper">
               <div class="custom-info-box">
-                <h3>Cocos Cura Casas de Montaña</h3>
-                <p>Av. del Campanario 230, R8400 San Carlos de Bariloche, Río Negro, Argentina</p>
-                <p><strong>Rating:</strong> 4.3 ⭐ (71 reviews)</p>
-                <a href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank" rel="noopener noreferrer">View
-                  larger map</a>
-                <a href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank"
-                  rel="noopener noreferrer">Directions</a>
+                <div>
+                  <h3 class="info-box-title">Cocos Cura Casas de Montaña</h3>
+                <p class="info-box-address">Av. del Campanario 230, R8400 San Carlos de Bariloche, Río Negro, Argentina</p>
+                <p class="info-box-rating">4.3  <span class="review-count">71 reviews</span></p>
+                  <a class="info-box-link-view" href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank"
+                    rel="noopener noreferrer">View
+                    larger map</a>
+                </div>
+                <a class="info-box-link-directions" href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank"
+                  rel="noopener noreferrer">
+                  <img src="./img/Directions.svg" alt="Directions" class="directions-icon">
+                  <div>Directions</div>
+                  </a>
               </div>
               <iframe width="100%" height="400" frameborder="0" style="border:0; border-radius: 8px;"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2688.2284554013537!2d-71.48439155305277!3d-41.05611371140281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb8eac83323b3f87d%3A0x5ae9c8e4b3a8120!2sCocos%20Cura%20Casas%20de%20Montaña!5e0!3m2!1sen!2s!4v1634763807409!5m2!1sen!2s"
@@ -240,61 +264,7 @@
                   <img src="./img/arrow-down.svg" alt="arrow-down" class="arrow-down">
                 </div>
 
-                <div id="tripDetailsModal" class="tripDetailsModal">
-                  <div class="modal-content">
-                    <span class="modal-close">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path
-                          d="M6.575 7.975L1.675 12.875C1.49167 13.0583 1.25833 13.15 0.975 13.15C0.691667 13.15 0.458333 13.0583 0.275 12.875C0.0916663 12.6917 0 12.4583 0 12.175C0 11.8917 0.0916663 11.6583 0.275 11.475L5.175 6.575L0.275 1.675C0.0916663 1.49167 0 1.25833 0 0.975C0 0.691667 0.0916663 0.458333 0.275 0.275C0.458333 0.0916663 0.691667 0 0.975 0C1.25833 0 1.49167 0.0916663 1.675 0.275L6.575 5.175L11.475 0.275C11.6583 0.0916663 11.8917 0 12.175 0C12.4583 0 12.6917 0.0916663 12.875 0.275C13.0583 0.458333 13.15 0.691667 13.15 0.975C13.15 1.25833 13.0583 1.49167 12.875 1.675L7.975 6.575L12.875 11.475C13.0583 11.6583 13.15 11.8917 13.15 12.175C13.15 12.4583 13.0583 12.6917 12.875 12.875C12.6917 13.0583 12.4583 13.15 12.175 13.15C11.8917 13.15 11.6583 13.0583 11.475 12.875L6.575 7.975Z"
-                          fill="black" />
-                      </svg>
-                    </span>
 
-                    <div class="modal-section">
-                      <div id="modalContentContainer">
-                        <div class="modal-content-wrapper-container">
-                          <div class="modal-header">
-                            <img src="./img/home.svg" alt="home" class="modal-icon">
-                            Hab. Cabaña 1
-                          </div>
-                          <div class="modal-content-wrapper">
-                            <div class="adults-section">
-                              <h3 class="modal-title">Adultos</h3>
-                              <div class="counter">
-                                <button class="decrement">
-                                  <img src="./img/minus.svg" alt="minus">
-                                </button>
-                                <span class="personCount">2</span>
-                                <button class="increment">
-                                  <img src="./img/plus.svg" alt="plus">
-                                </button>
-                              </div>
-                            </div>
-                            <div class="children-section">
-                              <h3 class="modal-title">Niños</h3>
-                              <div class="counter">
-                                <button class="decrement">
-                                  <img src="./img/minus.svg" alt="minus">
-                                </button>
-                                <span class="childCount">0</span>
-                                <button class="increment">
-                                  <img src="./img/plus.svg" alt="plus">
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="add-room-container">
-                        <button id="addRoom">
-                          <img src="./img/plus.svg" alt="plus">
-                          Añadir Hab. / Cabaña
-                        </button>
-                      </div>
-                    </div>
-                    <button class="availability-button">Ver disponibilidad</button>
-                  </div>
-                </div>
               </div>
               <button class="availability-button">Ver disponibilidad</button>
             </div>
@@ -332,7 +302,62 @@
     </div>
   </footer>
 
+  <div id="tripDetailsModal" class="tripDetailsModal">
+    <div class="modal-content">
+      <span class="modal-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path
+            d="M6.575 7.975L1.675 12.875C1.49167 13.0583 1.25833 13.15 0.975 13.15C0.691667 13.15 0.458333 13.0583 0.275 12.875C0.0916663 12.6917 0 12.4583 0 12.175C0 11.8917 0.0916663 11.6583 0.275 11.475L5.175 6.575L0.275 1.675C0.0916663 1.49167 0 1.25833 0 0.975C0 0.691667 0.0916663 0.458333 0.275 0.275C0.458333 0.0916663 0.691667 0 0.975 0C1.25833 0 1.49167 0.0916663 1.675 0.275L6.575 5.175L11.475 0.275C11.6583 0.0916663 11.8917 0 12.175 0C12.4583 0 12.6917 0.0916663 12.875 0.275C13.0583 0.458333 13.15 0.691667 13.15 0.975C13.15 1.25833 13.0583 1.49167 12.875 1.675L7.975 6.575L12.875 11.475C13.0583 11.6583 13.15 11.8917 13.15 12.175C13.15 12.4583 13.0583 12.6917 12.875 12.875C12.6917 13.0583 12.4583 13.15 12.175 13.15C11.8917 13.15 11.6583 13.0583 11.475 12.875L6.575 7.975Z"
+            fill="black" />
+        </svg>
+      </span>
 
+      <div class="modal-section">
+        <div id="modalContentContainer">
+          <div class="modal-content-wrapper-container">
+            <div class="modal-header">
+              <img src="./img/home.svg" alt="home" class="modal-icon">
+              Hab. Cabaña 1
+            </div>
+            <div class="modal-content-wrapper">
+              <div class="adults-section">
+                <h3 class="modal-title">Adultos</h3>
+                <div class="counter">
+                  <button class="decrement">
+                    <img src="./img/minus.svg" alt="minus">
+                  </button>
+                  <span class="personCount">2</span>
+                  <button class="increment">
+                    <img src="./img/plus.svg" alt="plus">
+                  </button>
+                </div>
+              </div>
+              <div class="children-section">
+                <h3 class="modal-title">Niños</h3>
+                <div class="counter">
+                  <button class="decrement">
+                    <img src="./img/minus.svg" alt="minus">
+                  </button>
+                  <span class="childCount">0</span>
+                  <button class="increment">
+                    <img src="./img/plus.svg" alt="plus">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="add-room-container">
+          <button id="addRoom">
+            <img src="./img/plus.svg" alt="plus">
+            Añadir Hab. / Cabaña
+          </button>
+        </div>
+      </div>
+      <button class="availability-button"
+        onclick="document.getElementById('tripDetailsModal').style.display='none';">Ver disponibilidad</button>
+    </div>
+  </div>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -534,6 +559,7 @@
       const addRoomBtn = document.getElementById('addRoom');
       const peopleTextEl = document.querySelector('.people-text');
       const roomTextEl = document.querySelector('.room-text');
+      const availabilityButton = document.querySelector('.availability-button');
 
       // Open modal
       tripDetails.addEventListener('click', function () {
@@ -559,46 +585,62 @@
 
       // Add new room
       addRoomBtn.addEventListener('click', function () {
-        const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
-        modalContentContainer.appendChild(newWrapper);
-        setupCounters(newWrapper);
+        if (modalContentContainer.children.length < 4) {
+          const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
+          modalContentContainer.appendChild(newWrapper);
+          setupCounters(newWrapper);
+          updateAddRoomButton();
+        }
       });
 
       function createModalContentWrapper(roomNumber) {
         const wrapper = document.createElement('div');
         wrapper.className = 'modal-content-wrapper-container';
         wrapper.innerHTML = `
-        <div class="modal-header">
-          <img src="./img/home.svg" alt="home" class="modal-icon">
-          Hab. Cabaña ${roomNumber}
-        </div>
-        <div class="modal-content-wrapper">
-          <div class="adults-section">
-            <h3 class="modal-title">Adultos</h3>
-            <div class="counter">
-              <button class="decrement">
-                <img src="./img/minus.svg" alt="minus">
-              </button>
-              <span class="personCount">2</span>
-              <button class="increment">
-                <img src="./img/plus.svg" alt="plus">
-              </button>
+          <div class="modal-header">
+            <img src="./img/home.svg" alt="home" class="modal-icon">
+            Hab. Cabaña ${roomNumber}
+            ${roomNumber > 1 ? '<button class="remove-room">×</button>' : ''}
+          </div>
+          <div class="modal-content-wrapper">
+            <div class="adults-section">
+              <h3 class="modal-title">Adultos</h3>
+              <div class="counter">
+                <button class="decrement">
+                  <img src="./img/minus.svg" alt="minus">
+                </button>
+                <span class="personCount">2</span>
+                <button class="increment">
+                  <img src="./img/plus.svg" alt="plus">
+                </button>
+              </div>
+            </div>
+            <div class="children-section">
+              <h3 class="modal-title">Niños</h3>
+              <div class="counter">
+                <button class="decrement">
+                  <img src="./img/minus.svg" alt="minus">
+                </button>
+                <span class="childCount">0</span>
+                <button class="increment">
+                  <img src="./img/plus.svg" alt="plus">
+                </button>
+              </div>
             </div>
           </div>
-          <div class="children-section">
-            <h3 class="modal-title">Niños</h3>
-            <div class="counter">
-              <button class="decrement">
-                <img src="./img/minus.svg" alt="minus">
-              </button>
-              <span class="childCount">0</span>
-              <button class="increment">
-                <img src="./img/plus.svg" alt="plus">
-              </button>
-            </div>
-          </div>
-        </div>
-      `;
+        `;
+
+        // Add event listener for remove button
+        const removeBtn = wrapper.querySelector('.remove-room');
+        if (removeBtn) {
+          removeBtn.addEventListener('click', function () {
+            wrapper.remove();
+            updateRoomNumbers();
+            updateAddRoomButton();
+            updateURL();
+          });
+        }
+
         return wrapper;
       }
 
@@ -612,12 +654,14 @@
             let count = parseInt(countEl.textContent);
             if (count > 0) {
               countEl.textContent = count - 1;
+              updateURL();
             }
           });
 
           incrementBtn.addEventListener('click', () => {
             let count = parseInt(countEl.textContent);
             countEl.textContent = count + 1;
+            updateURL();
           });
         });
       }
@@ -632,9 +676,69 @@
 
         peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
         roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
+
+        updateURL();
       }
+
+      function updateAddRoomButton() {
+        addRoomBtn.style.display = modalContentContainer.children.length >= 4 ? 'none' : 'block';
+      }
+
+      function updateURL() {
+        let urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('rooms', modalContentContainer.children.length);
+
+        modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
+          const adults = room.querySelector('.personCount').textContent;
+          const kids = room.querySelector('.childCount').textContent;
+          urlParams.set(`room${index + 1}adults`, adults);
+          urlParams.set(`room${index + 1}kids`, kids);
+        });
+
+        history.replaceState(null, '', '?' + urlParams.toString());
+      }
+
+      // Update URL when clicking the availability button
+      availabilityButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        applyChanges();
+      });
+
+      function updateRoomNumbers() {
+        modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
+          const header = room.querySelector('.modal-header');
+
+          // Update the room title
+          header.childNodes[2].nodeValue = `Hab. Cabaña ${index + 1}`;
+
+          // Check if the remove button exists or needs to be added/removed
+          let removeBtn = header.querySelector('.remove-room');
+          if (index === 0) {
+            // For the first room, remove the button if it exists
+            if (removeBtn) removeBtn.remove();
+          } else {
+            // For other rooms, add the remove button if not present
+            if (!removeBtn) {
+              removeBtn = document.createElement('button');
+              removeBtn.className = 'remove-room';
+              removeBtn.textContent = '×';
+              removeBtn.addEventListener('click', function () {
+                room.remove();
+                updateRoomNumbers();
+                updateAddRoomButton();
+                updateURL();
+              });
+              header.appendChild(removeBtn);
+            }
+          }
+        });
+      }
+
+      // Initialize URL with default values
+      updateURL();
     });
   </script>
+
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
   <!-- Initialize Slick slider with AsNavFor -->
@@ -663,10 +767,23 @@
           {
             breakpoint: 768,
             settings: {
-              slidesToShow: 3
+              slidesToShow: 5
             }
           }
         ]
+      });
+    });
+  </script>
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const navButtons = document.querySelector('.nav-buttons');
+
+      mobileMenuToggle.addEventListener('click', function () {
+        navButtons.classList.toggle('active');
       });
     });
   </script>
