@@ -112,9 +112,9 @@
         <div class="cabana-info">
           <div class="tabs-container">
             <div class="tabs">
-            <a href="#section-1" class="active">Descripción cabañas</a>
-            <a href="#section-2">Servicios</a>
-            <a href="#section-3">Imágenes</a>
+              <a href="#section-1" class="active">Descripción cabañas</a>
+              <a href="#section-2">Servicios</a>
+              <a href="#section-3">Imágenes</a>
               <a href="#section-4">Ubicación</a>
             </div>
           </div>
@@ -204,17 +204,18 @@
               <div class="custom-info-box">
                 <div>
                   <h3 class="info-box-title">Cocos Cura Casas de Montaña</h3>
-                <p class="info-box-address">Av. del Campanario 230, R8400 San Carlos de Bariloche, Río Negro, Argentina</p>
-                <p class="info-box-rating">4.3  <span class="review-count">71 reviews</span></p>
+                  <p class="info-box-address">Av. del Campanario 230, R8400 San Carlos de Bariloche, Río Negro,
+                    Argentina</p>
+                  <p class="info-box-rating">4.3 <span class="review-count">71 reviews</span></p>
                   <a class="info-box-link-view" href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank"
                     rel="noopener noreferrer">View
                     larger map</a>
                 </div>
-                <a class="info-box-link-directions" href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE" target="_blank"
-                  rel="noopener noreferrer">
+                <a class="info-box-link-directions" href="https://goo.gl/maps/YOUR_GOOGLE_MAPS_LINK_HERE"
+                  target="_blank" rel="noopener noreferrer">
                   <img src="./img/Directions.svg" alt="Directions" class="directions-icon">
                   <div>Directions</div>
-                  </a>
+                </a>
               </div>
               <iframe width="100%" height="400" frameborder="0" style="border:0; border-radius: 8px;"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2688.2284554013537!2d-71.48439155305277!3d-41.05611371140281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb8eac83323b3f87d%3A0x5ae9c8e4b3a8120!2sCocos%20Cura%20Casas%20de%20Montaña!5e0!3m2!1sen!2s!4v1634763807409!5m2!1sen!2s"
@@ -274,7 +275,11 @@
     </div>
 
   </div>
-
+  <div class="mobile-modal-container">
+    <button id="date-range-picker" class="availability-button"
+      onclick="document.getElementById('tripDetailsModal').style.display='block'">Ver
+      disponibilidad</button>
+  </div>
   <!-- Footer Section -->
   <footer class="footer-container">
     <div class="footer-content">
@@ -304,6 +309,7 @@
 
   <div id="tripDetailsModal" class="tripDetailsModal">
     <div class="modal-content">
+      <div class="date-range-picker-container"></div>
       <span class="modal-close">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path
@@ -314,11 +320,14 @@
 
       <div class="modal-section">
         <div id="modalContentContainer">
+
           <div class="modal-content-wrapper-container">
             <div class="modal-header">
               <img src="./img/home.svg" alt="home" class="modal-icon">
               Hab. Cabaña 1
             </div>
+
+
             <div class="modal-content-wrapper">
               <div class="adults-section">
                 <h3 class="modal-title">Adultos</h3>
@@ -357,6 +366,26 @@
       <button class="availability-button"
         onclick="document.getElementById('tripDetailsModal').style.display='none';">Ver disponibilidad</button>
     </div>
+  </div>
+  <div class="mobile-sidebar">
+    <div class="sidebar-header">
+      <img src="./img/logo-black.png.png" alt="Logo" class="sidebar-logo">
+      <button class="sidebar-close">
+
+      </button>
+
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="#overview">Descripción general</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#location">Ubicación</a></li>
+        <li><a href="#reviews">Opiniones</a></li>
+      </ul>
+    </nav>
+    <!-- <div class="sidebar-footer">
+      <button class="sidebar-cta">Reservar ahora</button>
+    </div> -->
   </div>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -544,9 +573,11 @@
         $('#departure-date').text(end.format('DD/MM/YYYY'));
       });
 
-      // Add click event for close button
+      // Add click event for close button (desktop version only)
       $(document).on('click', '.daterangepicker .close-btn', function () {
-        $(this).closest('.daterangepicker').hide();
+        if (window.innerWidth > 768) {
+          $(this).closest('.daterangepicker').hide();
+        }
       });
     });
   </script>
@@ -585,12 +616,9 @@
 
       // Add new room
       addRoomBtn.addEventListener('click', function () {
-        if (modalContentContainer.children.length < 4) {
-          const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
-          modalContentContainer.appendChild(newWrapper);
-          setupCounters(newWrapper);
-          updateAddRoomButton();
-        }
+        const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
+        modalContentContainer.appendChild(newWrapper);
+        setupCounters(newWrapper);
       });
 
       function createModalContentWrapper(roomNumber) {
@@ -636,7 +664,6 @@
           removeBtn.addEventListener('click', function () {
             wrapper.remove();
             updateRoomNumbers();
-            updateAddRoomButton();
             updateURL();
           });
         }
@@ -680,10 +707,6 @@
         updateURL();
       }
 
-      function updateAddRoomButton() {
-        addRoomBtn.style.display = modalContentContainer.children.length >= 4 ? 'none' : 'block';
-      }
-
       function updateURL() {
         let urlParams = new URLSearchParams(window.location.search);
         urlParams.set('rooms', modalContentContainer.children.length);
@@ -725,7 +748,6 @@
               removeBtn.addEventListener('click', function () {
                 room.remove();
                 updateRoomNumbers();
-                updateAddRoomButton();
                 updateURL();
               });
               header.appendChild(removeBtn);
@@ -755,7 +777,7 @@
       });
 
       $('.slider-nav').slick({
-        slidesToShow: 5,
+        slidesToShow: 6,
         slidesToScroll: 1,
         asNavFor: '.slider-for',
         dots: false,
@@ -782,11 +804,138 @@
       const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
       const navButtons = document.querySelector('.nav-buttons');
 
-      mobileMenuToggle.addEventListener('click', function () {
-        navButtons.classList.toggle('active');
-      });
+      // mobileMenuToggle.addEventListener('click', function () {
+      //   navButtons.classList.toggle('active');
+      // });
     });
   </script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileSidebar = document.querySelector('.mobile-sidebar');
+    const sidebarClose = document.querySelector('.sidebar-close');
+
+    mobileMenuToggle.addEventListener('click', function() {
+      mobileSidebar.classList.toggle('active');
+    });
+
+    sidebarClose.addEventListener('click', function() {
+      mobileSidebar.classList.remove('active'); // Close the sidebar
+    });
+  });
+</script>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const mobileSidebar = document.querySelector('.mobile-sidebar');
+    const sidebarClose = document.querySelector('.sidebar-close');
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+
+    // Close sidebar when clicking the close button
+    sidebarClose.addEventListener('click', function() {
+      mobileSidebar.classList.remove('active');
+    });
+
+    // Close sidebar when clicking any link
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        mobileSidebar.classList.remove('active');
+      });
+    });
+  });
+</script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const header = document.querySelector('.navbar');
+      const logoImg = document.querySelector('.navbar-logo-img');
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const mobileMenuToggleSpans = document.querySelectorAll('.mobile-menu-toggle span');
+      const sidebar = document.querySelector('.nav-buttons'); // Assuming this is your sidebar
+
+      // Listen to the scroll event
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 1) {
+          header.style.backgroundColor = '#fff'; // Change background to white
+          logoImg.src = './img/logo-black.png.png'; // Change logo to black
+          mobileMenuToggleSpans.forEach(span => {
+            span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
+          });
+        } else {
+          header.style.backgroundColor = 'transparent'; // Change back to transparent
+          logoImg.src = './img/logo-white.png'; // Change logo to white
+          mobileMenuToggleSpans.forEach(span => {
+            span.style.backgroundColor = ''; // Reset to default color (presumably white)
+          });
+        }
+      });
+
+
+  </script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const tripDetailsModal = document.getElementById('tripDetailsModal');
+      const availabilityButton = document.querySelector('.availability-button');
+      const dateRangePicker = $('#date-range-picker');
+
+      // Initialize the date range picker
+      dateRangePicker.daterangepicker({
+        opens: 'center',
+        autoApply: true,
+        showDropdowns: true,
+        minDate: moment(),
+        startDate: moment(),
+        endDate: moment().add(4, 'days'),
+        locale: {
+          format: 'DD/MM/YYYY',
+          separator: ' - ',
+          applyLabel: 'Aplicar',
+          cancelLabel: 'Cancelar',
+          fromLabel: 'Desde',
+          toLabel: 'Hasta',
+          customRangeLabel: 'Personalizado',
+          weekLabel: 'S',
+          daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+          monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          firstDay: 1
+        },
+        showCustomRangeLabel: false,
+        alwaysShowCalendars: true,
+        singleDatePicker: false,
+        numberOfMonths: 1,
+        linkedCalendars: false,
+        parentEl: '#tripDetailsModal',
+        containerClass: 'custom-daterangepicker'
+      });
+
+      // Open modal and show date-range picker when button is clicked
+      availabilityButton.addEventListener('click', function () {
+        tripDetailsModal.style.display = 'flex';
+        dateRangePicker.data('daterangepicker').show();
+
+        // Hide the right calendar and adjust the left calendar
+        setTimeout(() => {
+          $('.custom-daterangepicker .drp-calendar.right').hide();
+          $('.custom-daterangepicker .drp-calendar.left').addClass('single');
+          $('.custom-daterangepicker .calendar-table').css('width', '100%');
+        }, 0);
+
+        // Make sure the date range picker stays visible in the modal
+        $('.custom-daterangepicker').css('display', 'block');
+      });
+
+      // Prevent closing the date range picker when clicking outside
+      $(document).on('click', function (event) {
+        if (!$(event.target).closest('.custom-daterangepicker, .availability-button, #tripDetailsModal').length) {
+          // Do nothing to prevent closing
+        }
+      });
+
+      // Function to close the modal
+      function closeModal() {
+        tripDetailsModal.style.display = 'none';
+      }
+    });
+  </script>
+
 
 </body>
 
