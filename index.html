@@ -35,21 +35,20 @@
 
   <div class="headerimg">
 
-    <nav class="navbar">
+    <!-- <nav class="navbar">
       <div class="container">
         <div class="navbar-content">
           <a href="#" class="navbar-logo">
             <img src="./img/logo-white.png" alt="logo" class="navbar-logo-img">
           </a>
 
-          <!-- Add a hamburger menu icon for mobile -->
           <button class="mobile-menu-toggle">
             <span></span>
             <span></span>
             <span></span>
           </button>
 
-          <!-- Wrap the button in a div for easier mobile styling -->
+
           <div class="nav-buttons">
             <button class="best-cabins-button">
               Mejores cabañas en Bariloche
@@ -62,7 +61,50 @@
           </div>
         </div>
       </div>
-    </nav>
+    </nav> -->
+
+    <header class="top-nav scroll-hide scroll">
+      <div class="container">
+        <div class="top-nav-logo"><a href="/">
+            <img src="/img/logo-white.png"></a>
+        </div>
+
+        <input class="hamburger-button" type="checkbox" id="hamburger-button" />
+        <label for="hamburger-button">
+          <div></div>
+        </label>
+
+        <div class="menu">
+          <nav role="navigation">
+            <ul>
+              <li>
+                <input id="check01" class="submenu-input" type="checkbox" name="menu" />
+                <label for="check01">Amenidades más cotizadas <svg version="1.1" focusable="false" fill="#585e6e"
+                    width="12px" height="12px" viewBox="0 0 12 12">
+                    <path d="M3.83,4.24L6,6.41l2.17-2.17l0.67,0.67L6,7.76L3.15,4.91L3.83,4.24z" />
+                  </svg></label>
+                <ul class="submenu" aria-label="submenu">
+                  <div class="call-to-action">
+                    <h1 class="h3">Cabañas en Bariloche</p>
+                  </div>
+                  <div class="links">
+                    <li><a href="/frente-al-lago">🏞️ Frente al lago</a></li>
+                    <li><a href="/con-pileta">🏊 Con pileta</a></li>
+                    <li><a href="/para-2-personas">🧑‍🤝‍🧑 Para 2 personas</a></li>
+                    <li><a href="/para-3-personas">🧑‍🤝‍🧑🧍Para 3 personas</a></li>
+
+                  </div>
+                </ul>
+              </li>
+
+              <!--<li><a href="" rel="nofollow" class="login">Iniciar sesión</a></li>
+                        <li><a href="" rel="nofollow" class="signup">Registrarse</a></li>-->
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+    </header>
     <div class="f-space"></div>
     <div class="container ">
       <div class="header-content">
@@ -254,14 +296,14 @@
                     <h6 class="trip-title">TU VIAJE</h6>
                     <div class="people-count">
                       <img src="./img/man.svg" alt="People icon">
-                      <p class="people-text">2 Personas</p>
+                      <p id="people-text" class="people-text">2 Personas</p>
                     </div>
                   </div>
                   <div class="accommodation">
                     <p></p>
                     <div class="room-count">
                       <img src="./img/home.svg" alt="Accommodation icon">
-                      <p class="room-text">1 Hab. / Cabaña</p>
+                      <p id="room-text" class="room-text">1 Hab. / Cabaña</p>
                     </div>
                   </div>
 
@@ -270,7 +312,8 @@
 
 
               </div>
-              <button class="availability-button-main">Ver disponibilidad</button>
+              <a href="reservar.cabañasbariloche.com.ar?in=2024-10-25&out=in=2024-10-27&rooms=1&room1adults=2&room1kids=0"
+                class="availability-button-main">Ver disponibilidad</a>
             </div>
           </div>
         </div>
@@ -478,80 +521,62 @@
 
   </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const sections = document.querySelectorAll('section');
-    const tabs = document.querySelectorAll('.tabs a');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sections = document.querySelectorAll('section');
+      const tabs = document.querySelectorAll('.tabs a');
 
-    // Manually activate the first tab on page load
-    tabs.forEach(tab => tab.classList.remove('active')); // Remove active class from all tabs initially
-    if (tabs.length > 0) {
-      tabs[0].classList.add('active'); // Set the first tab as active by default
-    }
+      // Manually activate the first tab on page load
+      tabs.forEach(tab => tab.classList.remove('active')); // Remove active class from all tabs initially
+      if (tabs.length > 0) {
+        tabs[0].classList.add('active'); // Set the first tab as active by default
+      }
 
-    // Create an intersection observer
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Remove 'active' class from all tabs
-          tabs.forEach(tab => tab.classList.remove('active'));
+      // Create an intersection observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Remove 'active' class from all tabs
+            tabs.forEach(tab => tab.classList.remove('active'));
 
-          // Find the tab associated with the visible section
-          const activeTab = document.querySelector(`.tabs a[href="#${entry.target.id}"]`);
-          if (activeTab) {
-            activeTab.classList.add('active');
+            // Find the tab associated with the visible section
+            const activeTab = document.querySelector(`.tabs a[href="#${entry.target.id}"]`);
+            if (activeTab) {
+              activeTab.classList.add('active');
+            }
           }
+        });
+      }, {
+        threshold: 0.6 // 60% of the section must be visible to trigger
+      });
+
+      // Observe each section
+      sections.forEach(section => {
+        if (section.id) {
+          observer.observe(section);
         }
       });
-    }, {
-      threshold: 0.6 // 60% of the section must be visible to trigger
-    });
 
-    // Observe each section
-    sections.forEach(section => {
-      if (section.id) {
-        observer.observe(section);
-      }
-    });
+      // Add click event listeners to the tabs for smooth scrolling
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').slice(1);
+          const targetElement = document.getElementById(targetId);
 
-    // Add click event listeners to the tabs for smooth scrolling
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').slice(1);
-        const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
 
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-
-          // Manually set the clicked tab as active
-          tabs.forEach(tab => tab.classList.remove('active'));
-          this.classList.add('active');
-        }
+            // Manually set the clicked tab as active
+            tabs.forEach(tab => tab.classList.remove('active'));
+            this.classList.add('active');
+          }
+        });
       });
     });
-  });
-</script>
-
-
-
-  <script type="text/javascript">
-    const header = document.querySelector('header.top-nav');
-
-    // Listen to the scroll event
-    window.addEventListener('scroll', function () {
-      console.log(window.scrollY); // Log to check scroll position
-
-      // If the scroll is more than 1px
-      if (window.scrollY > 1) {
-        header.style.backgroundColor = '#fff'; // Change background to white
-      } else {
-        header.style.backgroundColor = 'transparent'; // Change back to transparent
-      }
-    });
-
-
   </script>
+
+
 
 
 
@@ -603,8 +628,26 @@
           '<button class="close-btn" type="button">×</button>' +
           '</div>'
       }, function (start, end, label) {
+        // Update the displayed dates
         $('#arrival-date').text(start.format('DD/MM/YYYY'));
         $('#departure-date').text(end.format('DD/MM/YYYY'));
+
+        // Update URL parameters
+        const formattedStart = start.format('YYYY-MM-DD');
+        const formattedEnd = end.format('YYYY-MM-DD');
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Remove 'in' and 'out' parameters if they exist
+        urlParams.delete('in');
+        urlParams.delete('out');
+
+        // Construct the new URL with 'in' and 'out' parameters first
+        const mainUrl = window.location.pathname;
+        const dateParams = `?in=${formattedStart}&out=${formattedEnd}`;
+        const otherParams = urlParams.toString() ? `&${urlParams.toString()}` : '';
+
+        const newUrl = `${mainUrl}${dateParams}${otherParams}`;
+        history.replaceState(null, '', newUrl);
       });
 
       // Add click event for close button (desktop version only)
@@ -617,6 +660,7 @@
   </script>
 
 
+
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       const tripDetails = document.querySelector('.trip-details');
@@ -624,8 +668,8 @@
       const closeBtn = modal.querySelector('.modal-close');
       const modalContentContainer = document.getElementById('modalContentContainer');
       const addRoomBtn = document.getElementById('addRoom');
-      const peopleTextEl = document.querySelector('.people-text');
-      const roomTextEl = document.querySelector('.room-text');
+      const peopleTextEl = document.getElementById('people-text');
+      const roomTextEl = document.getElementById('room-text');
       const availabilityButton = document.getElementById('availability-button-modal-close');
 
       // Open modal
@@ -658,42 +702,47 @@
         updateRoomNumbers(); // Update room numbers after adding a room
       });
 
+      // Call updateURL when availabilityButton is clicked
+      availabilityButton.addEventListener('click', function () {
+        updateURL();
+      });
+
       function createModalContentWrapper(roomNumber) {
         const wrapper = document.createElement('div');
         wrapper.className = 'modal-content-wrapper-container';
         wrapper.innerHTML = `
-        <div class="modal-header">
-          <img src="./img/home.svg" alt="home" class="modal-icon">
-          Hab. Cabaña ${roomNumber}
-          ${roomNumber > 1 ? '<button class="remove-room">×</button>' : ''}
-        </div>
-        <div class="modal-content-wrapper">
-          <div class="adults-section">
-            <h3 class="modal-title">Adultos</h3>
-            <div class="counter">
-              <button class="decrement">
-                <img src="./img/minus.svg" alt="minus">
-              </button>
-              <span class="personCount">2</span>
-              <button class="increment">
-                <img src="./img/plus.svg" alt="plus">
-              </button>
-            </div>
-          </div>
-          <div class="children-section">
-            <h3 class="modal-title">Niños</h3>
-            <div class="counter">
-              <button class="decrement">
-                <img src="./img/minus.svg" alt="minus">
-              </button>
-              <span class="childCount">0</span>
-              <button class="increment">
-                <img src="./img/plus.svg" alt="plus">
-              </button>
-            </div>
+      <div class="modal-header">
+        <img src="./img/home.svg" alt="home" class="modal-icon">
+        Hab. Cabaña ${roomNumber}
+        ${roomNumber > 1 ? '<button class="remove-room">×</button>' : ''}
+      </div>
+      <div class="modal-content-wrapper">
+        <div class="adults-section">
+          <h3 class="modal-title">Adultos</h3>
+          <div class="counter">
+            <button class="decrement">
+              <img src="./img/minus.svg" alt="minus">
+            </button>
+            <span class="personCount">2</span>
+            <button class="increment">
+              <img src="./img/plus.svg" alt="plus">
+            </button>
           </div>
         </div>
-      `;
+        <div class="children-section">
+          <h3 class="modal-title">Niños</h3>
+          <div class="counter">
+            <button class="decrement">
+              <img src="./img/minus.svg" alt="minus">
+            </button>
+            <span class="childCount">0</span>
+            <button class="increment">
+              <img src="./img/plus.svg" alt="plus">
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
 
         // Add event listener for remove button
         const removeBtn = wrapper.querySelector('.remove-room');
@@ -728,44 +777,36 @@
         });
       }
 
-      function applyChanges() {
-        let totalPeople = 0;
-        let totalRooms = modalContentContainer.children.length;
-
-        modalContentContainer.querySelectorAll('.personCount, .childCount').forEach(countEl => {
-          totalPeople += parseInt(countEl.textContent);
-        });
-
-        peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
-        roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
-      }
-
       function updateURL() {
-        let urlParams = new URLSearchParams();
+        let urlParams = new URLSearchParams(window.location.search);
 
-        // Add or update the room-related parameters
-        urlParams.set('rooms', modalContentContainer.children.length);
+        // Remove all existing room-related parameters
+        for (let key of urlParams.keys()) {
+          if (key.startsWith('room')) {
+            urlParams.delete(key);
+          }
+        }
+
+        // Set new room-related parameters
+        const roomParams = [];
+        const totalRooms = modalContentContainer.children.length;
+        urlParams.set('rooms', totalRooms);
+
         modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
           const adults = room.querySelector('.personCount').textContent;
           const kids = room.querySelector('.childCount').textContent;
-          urlParams.set(`room${index + 1}adults`, adults);
-          urlParams.set(`room${index + 1}kids`, kids);
+          roomParams.push(`room${index + 1}adults=${adults}`);
+          roomParams.push(`room${index + 1}kids=${kids}`);
         });
 
         // Construct the new URL with updated parameters
-        const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+        const mainUrl = window.location.pathname;
+        const otherParams = urlParams.toString().split('&').filter(param => !param.startsWith('room')).join('&');
+        const newUrl = `${mainUrl}?${otherParams}${otherParams && roomParams.length ? '&' : ''}${roomParams.join('&')}`;
 
         // Update the URL without reloading the page
         history.replaceState(null, '', newUrl);
       }
-
-      // Update URL when clicking the availability button
-      availabilityButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        applyChanges();
-        updateURL(); // Ensure URL is updated when button is clicked
-        modal.style.display = 'none'; // Close the modal
-      });
 
       function updateRoomNumbers() {
         modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
@@ -795,10 +836,46 @@
           }
         });
       }
+
+function applyChanges() {
+    let totalAdults = 0;
+    let totalChildren = 0;
+    let totalRooms = modalContentContainer.children.length;
+
+    // Calculate total adults and children
+    modalContentContainer.querySelectorAll('.personCount').forEach(countEl => {
+        totalAdults += parseInt(countEl.textContent);
     });
+
+    modalContentContainer.querySelectorAll('.childCount').forEach(countEl => {
+        totalChildren += parseInt(countEl.textContent);
+    });
+
+    let totalPeople = totalAdults + totalChildren;
+
+    console.log("Total Adults:", totalAdults, "Total Children:", totalChildren, "Total People:", totalPeople);
+
+    // Ensure elements are selected correctly
+    console.log("peopleTextEl:", peopleTextEl, "roomTextEl:", roomTextEl);
+
+    // Update the text elements with the new counts
+    if (peopleTextEl && roomTextEl) {
+        peopleTextEl.textContent = `${totalAdults} Adult${totalAdults !== 1 ? 's' : ''}, ${totalChildren} Child${totalChildren !== 1 ? 'ren' : ''}`;
+        roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
+    } else {
+        console.error("Element(s) not found: peopleTextEl or roomTextEl");
+    }
+
+    // Update URL after applying changes
+    updateURL();
+
+    // Close the modal after applying changes
+    closeModal();
+}
+    });
+
+
   </script>
-
-
 
   <!-- Initialize Slick slider with AsNavFor -->
   <script type="text/javascript">
@@ -864,7 +941,7 @@
       // });
     });
   </script>
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
       const mobileSidebar = document.querySelector('.mobile-sidebar');
@@ -878,7 +955,7 @@
         mobileSidebar.classList.remove('active'); // Close the sidebar
       });
     });
-  </script>
+  </script> -->
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       const mobileSidebar = document.querySelector('.mobile-sidebar');
@@ -898,11 +975,44 @@
       });
     });
   </script>
+
+
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
-      const header = document.querySelector('.navbar');
-      const logoImg = document.querySelector('.navbar-logo-img');
-      const mobileMenuToggleSpans = document.querySelectorAll('.mobile-menu-toggle span');
+      const header = document.querySelector('.top-nav'); // Updated to match your HTML
+      const logoImg = document.querySelector('.top-nav-logo img'); // Updated to match your HTML
+      const mobileMenuToggleSpans = document.querySelectorAll('.hamburger-button + label div');
+      const navLinks = document.querySelectorAll('header .container .menu nav ul > li > a, header .container .menu nav ul > li > label');
+
+      // Listen to the scroll event
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 1) {
+          header.style.backgroundColor = '#fff'; // Change background to white
+          logoImg.src = './img/logo-black.png'; // Change logo to black
+          mobileMenuToggleSpans.forEach(span => {
+            span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
+          });
+          navLinks.forEach(link => {
+            link.style.color = 'black'; // Change nav link color to black
+          });
+        } else {
+          header.style.backgroundColor = 'transparent'; // Change back to transparent
+          logoImg.src = './img/logo-white.png'; // Change logo to white
+          mobileMenuToggleSpans.forEach(span => {
+            span.style.backgroundColor = ''; // Reset to default color (presumably white)
+          });
+          navLinks.forEach(link => {
+            link.style.color = ''; // Reset nav link color to default
+          });
+        }
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const header = document.querySelector('.top-nav'); // Updated to match your HTML
+      const logoImg = document.querySelector('.top-nav-logo img'); // Updated to match your HTML
+      const mobileMenuToggleSpans = document.querySelectorAll('.hamburger-button + label div');
 
       // Listen to the scroll event
       window.addEventListener('scroll', function () {
@@ -922,6 +1032,9 @@
       });
     });
   </script>
+
+
+
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       const tripDetailsModal = document.getElementById('tripDetailsModal');
@@ -956,6 +1069,27 @@
         linkedCalendars: false,
         parentEl: '#tripDetailsModal',
         containerClass: 'custom-daterangepicker'
+      }, function (start, end) {
+        // Update the displayed dates
+        $('#arrival-date').text(start.format('DD/MM/YYYY'));
+        $('#departure-date').text(end.format('DD/MM/YYYY'));
+
+        // Update URL parameters
+        const formattedStart = start.format('YYYY-MM-DD');
+        const formattedEnd = end.format('YYYY-MM-DD');
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Remove 'in' and 'out' parameters if they exist
+        urlParams.delete('in');
+        urlParams.delete('out');
+
+        // Construct the new URL with 'in' and 'out' parameters first
+        const mainUrl = window.location.pathname;
+        const dateParams = `?in=${formattedStart}&out=${formattedEnd}`;
+        const otherParams = urlParams.toString() ? `&${urlParams.toString()}` : '';
+
+        const newUrl = `${mainUrl}${dateParams}${otherParams}`;
+        history.replaceState(null, '', newUrl);
       });
 
       // Open modal and show date-range picker when button is clicked
@@ -989,6 +1123,30 @@
   </script>
 
 
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const arrivalDateElement = document.getElementById('arrival-date');
+      const departureDateElement = document.getElementById('departure-date');
+
+      // Calculate the dates
+      const today = new Date();
+      const checkInDate = new Date(today); // Today's date
+      const checkOutDate = new Date(today);
+      checkOutDate.setDate(today.getDate() + 7); // 7 days from today
+
+      // Format the dates as DD/MM/YYYY
+      const formatDate = (date) => {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      };
+
+      // Update the HTML content
+      arrivalDateElement.textContent = formatDate(checkInDate);
+      departureDateElement.textContent = formatDate(checkOutDate);
+    });
+  </script>
 </body>
 
 </html>

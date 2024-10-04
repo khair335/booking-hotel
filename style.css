@@ -66,7 +66,8 @@ header.top-nav {
   width: 100%;
   z-index: 1000;
   transition: top 0.3s ease-in-out;
-  background: #fff;
+  background: #6f6b6b40;
+  border-bottom: 1px solid #ddd;
 }
 
 header.top-nav .container {
@@ -126,7 +127,7 @@ header .container .menu nav ul li>ul {
 }
 
 header .container .menu nav ul li:hover {
-  background-color: #f8f9fa;
+  background-color: transparent;
   transition: 0.14s ease-in-out
 }
 
@@ -163,10 +164,26 @@ header .container {
 }
 
 .top-nav-logo a img {
-  max-width: 180px;
-  padding-top: 10px
-}
+  max-width: 240px;
+  width: 100%;
 
+  /* padding-top: 10px */
+}
+.top-nav-logo{
+    max-width: 240px;
+  width: 100%;
+}
+.menu, li{
+  margin: 0 !important;
+}
+.top-nav-logo a {
+  max-width: 240px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 50px;
+}
 .menu,
 .top-nav,
 .top-nav-logo,
@@ -327,7 +344,7 @@ header .container .menu nav ul li span {
   header .container .menu nav ul>li>label {
     width: max-content;
     padding: 0 1.25rem;
-    color: #585e6e;
+    color: #ffffff;
     margin: 0
   }
 
@@ -388,6 +405,19 @@ header .container .menu nav ul li span {
     position: fixed;
     left: 25%;
     flex-direction: column;
+    top: 62px;
+    animation: fadeInDown 0.3s ease-out;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -863,6 +893,7 @@ iframe {
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
+  text-decoration: none;
 
 
 
