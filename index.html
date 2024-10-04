@@ -267,7 +267,7 @@
 
 
               </div>
-              <button class="availability-button">Ver disponibilidad</button>
+              <button class="availability-button-main">Ver disponibilidad</button>
             </div>
           </div>
         </div>
@@ -363,7 +363,7 @@
           </button>
         </div>
       </div>
-      <button class="availability-button"
+      <button id="availability-button-modal-close" class="availability-button"
         onclick="document.getElementById('tripDetailsModal').style.display='none';">Ver disponibilidad</button>
     </div>
   </div>
@@ -608,6 +608,8 @@
       });
     });
   </script>
+
+
   <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function () {
     const tripDetails = document.querySelector('.trip-details');
@@ -617,11 +619,11 @@
     const addRoomBtn = document.getElementById('addRoom');
     const peopleTextEl = document.querySelector('.people-text');
     const roomTextEl = document.querySelector('.room-text');
-    const availabilityButton = document.querySelector('.availability-button');
+    const availabilityButton = document.getElementById('availability-button-modal-close');
 
     // Open modal
     tripDetails.addEventListener('click', function () {
-      modal.style.display = 'block';
+      modal.style.display = 'flex';
     });
 
     // Close modal
@@ -647,7 +649,6 @@
       modalContentContainer.appendChild(newWrapper);
       setupCounters(newWrapper);
       updateRoomNumbers(); // Update room numbers after adding a room
-      updateURL(); // Update URL after adding a room
     });
 
     function createModalContentWrapper(roomNumber) {
@@ -710,14 +711,12 @@
           let count = parseInt(countEl.textContent);
           if (count > 0) {
             countEl.textContent = count - 1;
-            updateURL();
           }
         });
 
         incrementBtn.addEventListener('click', () => {
           let count = parseInt(countEl.textContent);
           countEl.textContent = count + 1;
-          updateURL();
         });
       });
     }
@@ -732,14 +731,13 @@
 
       peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
       roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
-
-      updateURL();
     }
 
     function updateURL() {
-      let urlParams = new URLSearchParams(window.location.search);
-      urlParams.set('rooms', modalContentContainer.children.length);
+      let urlParams = new URLSearchParams();
 
+      // Add or update the room-related parameters
+      urlParams.set('rooms', modalContentContainer.children.length);
       modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
         const adults = room.querySelector('.personCount').textContent;
         const kids = room.querySelector('.childCount').textContent;
@@ -747,7 +745,11 @@
         urlParams.set(`room${index + 1}kids`, kids);
       });
 
-      history.replaceState(null, '', '?' + urlParams.toString());
+      // Construct the new URL with updated parameters
+      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+
+      // Update the URL without reloading the page
+      history.replaceState(null, '', newUrl);
     }
 
     // Update URL when clicking the availability button
@@ -779,19 +781,15 @@
             removeBtn.addEventListener('click', function () {
               room.remove();
               updateRoomNumbers();
-              updateURL();
+              updateURL(); // Update URL after removing a room
             });
             header.appendChild(removeBtn);
           }
         }
       });
     }
-
-    // Initialize URL with default values on page load
-    updateURL(); // This ensures the URL is updated with default values when the page is loaded
   });
 </script>
-
 
 
 

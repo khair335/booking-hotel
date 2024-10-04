@@ -848,6 +848,29 @@ iframe {
   background-color: #005bb5;
 }
 
+
+.availability-button-main {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #1A6FB0;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+
+
+
+}
+
+.availability-button-main:hover {
+  background-color: #005bb5;
+}
 .sidebar-form {
   border: 1px solid #0CBCB7;
   border-radius: 8px;
