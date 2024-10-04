@@ -110,14 +110,14 @@
 
       <div class="cabana-info-container">
         <div class="cabana-info">
-          <div class="tabs-container">
-            <div class="tabs">
-              <a href="#section-1" class="active">Descripción cabañas</a>
-              <a href="#section-2">Servicios</a>
-              <a href="#section-3">Imágenes</a>
-              <a href="#section-4">Ubicación</a>
-            </div>
-          </div>
+         <div class="tabs-container">
+  <div class="tabs">
+    <a href="#section-1" class="active">Descripción cabañas</a>
+    <a href="#section-2">Servicios</a>
+    <a href="#section-3">Imágenes</a>
+    <a href="#section-4">Ubicación</a>
+  </div>
+</div>
 
           <div id="section-1" class="description">
             <div class="paragraph-container">
@@ -377,10 +377,10 @@
     </div>
     <nav class="sidebar-nav">
       <ul>
-        <li><a href="#overview">Descripción general</a></li>
-        <li><a href="#services">Servicios</a></li>
-        <li><a href="#location">Ubicación</a></li>
-        <li><a href="#reviews">Opiniones</a></li>
+        <li><a href="#section-1">Descripción cabañas</a></li>
+        <li><a href="#section-2">Servicios</a></li>
+        <li><a href="#section-3">Imágenes</a></li>
+        <li><a href="#section-4">Ubicación</a></li>
       </ul>
     </nav>
     <!-- <div class="sidebar-footer">
@@ -410,46 +410,73 @@
 
   </script>
 
-  <script type="text/javascript">
-    // Select all sections and corresponding tab links
-    const sections = document.querySelectorAll('.description');
-    const tabs = document.querySelectorAll('.tabs a');
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const sections = document.querySelectorAll('section'); // Ensure these sections have matching IDs
+  const tabs = document.querySelectorAll('.tabs a');
 
-    // Create an intersection observer
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        // Check if the section is intersecting with the viewport
-        if (entry.isIntersecting) {
-          // Remove 'active' class from all tabs
-          tabs.forEach(tab => tab.classList.remove('active'));
+  // Log sections and tabs to confirm everything is correct
+  console.log('Sections:', sections);
+  console.log('Tabs:', tabs);
 
-          // Find the tab corresponding to the current section and add 'active' class
-          const activeTab = document.querySelector(`.tabs a[href="#${entry.target.id}"]`);
-          if (activeTab) {
-            activeTab.classList.add('active');
-          }
+  // Manually activate the first tab on page load
+  tabs.forEach(tab => tab.classList.remove('active')); // Remove active class from all tabs initially
+  tabs[0].classList.add('active'); // Set the first tab as active by default
+
+  // Create an intersection observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        console.log(`Section ${entry.target.id} is intersecting`);
+
+        // Remove 'active' class from all tabs
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // Find the tab associated with the visible section
+        const activeTab = document.querySelector(`.tabs a[href="#${entry.target.id}"]`);
+
+        if (activeTab) {
+          activeTab.classList.add('active');
+          console.log(`Activated tab for section ${entry.target.id}`);
+        } else {
+          console.error(`No matching tab found for section ${entry.target.id}`);
         }
-      });
-    }, {
-      threshold: 0.6 // 60% of the section must be visible to trigger
+      }
     });
+  }, {
+    threshold: 0.4 // 40% of the section must be visible to trigger
+  });
 
-    // Observe each section
-    sections.forEach(section => observer.observe(section));
+  // Observe each section
+  sections.forEach(section => {
+    if (section.id) {
+      observer.observe(section);
+      console.log(`Observing section: ${section.id}`);
+    } else {
+      console.error('Section found without an id:', section);
+    }
+  });
 
-    // Add click event listeners to the tabs
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').slice(1);
-        const targetElement = document.getElementById(targetId);
+  // Add click event listeners to the tabs for smooth scrolling
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').slice(1); // Get the target section ID from href
+      const targetElement = document.getElementById(targetId);
 
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+      if (targetElement) {
+        console.log(`Scrolling to section ${targetId}`);
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        console.error(`Target section ${targetId} not found`);
+      }
     });
-  </script>
+  });
+});
+
+</script>
+
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       let lastScrollTop = 0;
@@ -582,186 +609,191 @@
     });
   </script>
   <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-      const tripDetails = document.querySelector('.trip-details');
-      const modal = document.getElementById('tripDetailsModal');
-      const closeBtn = modal.querySelector('.modal-close');
-      const modalContentContainer = document.getElementById('modalContentContainer');
-      const addRoomBtn = document.getElementById('addRoom');
-      const peopleTextEl = document.querySelector('.people-text');
-      const roomTextEl = document.querySelector('.room-text');
-      const availabilityButton = document.querySelector('.availability-button');
+  document.addEventListener('DOMContentLoaded', function () {
+    const tripDetails = document.querySelector('.trip-details');
+    const modal = document.getElementById('tripDetailsModal');
+    const closeBtn = modal.querySelector('.modal-close');
+    const modalContentContainer = document.getElementById('modalContentContainer');
+    const addRoomBtn = document.getElementById('addRoom');
+    const peopleTextEl = document.querySelector('.people-text');
+    const roomTextEl = document.querySelector('.room-text');
+    const availabilityButton = document.querySelector('.availability-button');
 
-      // Open modal
-      tripDetails.addEventListener('click', function () {
-        modal.style.display = 'block';
-      });
+    // Open modal
+    tripDetails.addEventListener('click', function () {
+      modal.style.display = 'block';
+    });
 
-      // Close modal
-      closeBtn.addEventListener('click', function () {
+    // Close modal
+    closeBtn.addEventListener('click', function () {
+      modal.style.display = 'none';
+      applyChanges();
+    });
+
+    // Close modal if clicked outside
+    window.addEventListener('click', function (event) {
+      if (event.target == modal) {
         modal.style.display = 'none';
         applyChanges();
-      });
+      }
+    });
 
-      // Close modal if clicked outside
-      window.addEventListener('click', function (event) {
-        if (event.target == modal) {
-          modal.style.display = 'none';
-          applyChanges();
-        }
-      });
+    // Setup initial counters
+    setupCounters(modalContentContainer);
 
-      // Setup initial counters
-      setupCounters(modalContentContainer);
+    // Add new room
+    addRoomBtn.addEventListener('click', function () {
+      const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
+      modalContentContainer.appendChild(newWrapper);
+      setupCounters(newWrapper);
+      updateRoomNumbers(); // Update room numbers after adding a room
+      updateURL(); // Update URL after adding a room
+    });
 
-      // Add new room
-      addRoomBtn.addEventListener('click', function () {
-        const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
-        modalContentContainer.appendChild(newWrapper);
-        setupCounters(newWrapper);
-      });
-
-      function createModalContentWrapper(roomNumber) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'modal-content-wrapper-container';
-        wrapper.innerHTML = `
-          <div class="modal-header">
-            <img src="./img/home.svg" alt="home" class="modal-icon">
-            Hab. Cabaña ${roomNumber}
-            ${roomNumber > 1 ? '<button class="remove-room">×</button>' : ''}
-          </div>
-          <div class="modal-content-wrapper">
-            <div class="adults-section">
-              <h3 class="modal-title">Adultos</h3>
-              <div class="counter">
-                <button class="decrement">
-                  <img src="./img/minus.svg" alt="minus">
-                </button>
-                <span class="personCount">2</span>
-                <button class="increment">
-                  <img src="./img/plus.svg" alt="plus">
-                </button>
-              </div>
-            </div>
-            <div class="children-section">
-              <h3 class="modal-title">Niños</h3>
-              <div class="counter">
-                <button class="decrement">
-                  <img src="./img/minus.svg" alt="minus">
-                </button>
-                <span class="childCount">0</span>
-                <button class="increment">
-                  <img src="./img/plus.svg" alt="plus">
-                </button>
-              </div>
+    function createModalContentWrapper(roomNumber) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'modal-content-wrapper-container';
+      wrapper.innerHTML = `
+        <div class="modal-header">
+          <img src="./img/home.svg" alt="home" class="modal-icon">
+          Hab. Cabaña ${roomNumber}
+          ${roomNumber > 1 ? '<button class="remove-room">×</button>' : ''}
+        </div>
+        <div class="modal-content-wrapper">
+          <div class="adults-section">
+            <h3 class="modal-title">Adultos</h3>
+            <div class="counter">
+              <button class="decrement">
+                <img src="./img/minus.svg" alt="minus">
+              </button>
+              <span class="personCount">2</span>
+              <button class="increment">
+                <img src="./img/plus.svg" alt="plus">
+              </button>
             </div>
           </div>
-        `;
+          <div class="children-section">
+            <h3 class="modal-title">Niños</h3>
+            <div class="counter">
+              <button class="decrement">
+                <img src="./img/minus.svg" alt="minus">
+              </button>
+              <span class="childCount">0</span>
+              <button class="increment">
+                <img src="./img/plus.svg" alt="plus">
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
 
-        // Add event listener for remove button
-        const removeBtn = wrapper.querySelector('.remove-room');
-        if (removeBtn) {
-          removeBtn.addEventListener('click', function () {
-            wrapper.remove();
-            updateRoomNumbers();
+      // Add event listener for remove button
+      const removeBtn = wrapper.querySelector('.remove-room');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', function () {
+          wrapper.remove();
+          updateRoomNumbers(); // Update room numbers after removing a room
+          updateURL(); // Update URL after removing a room
+        });
+      }
+
+      return wrapper;
+    }
+
+    function setupCounters(container) {
+      container.querySelectorAll('.counter').forEach(counter => {
+        const decrementBtn = counter.querySelector('.decrement');
+        const incrementBtn = counter.querySelector('.increment');
+        const countEl = counter.querySelector('.personCount, .childCount');
+
+        decrementBtn.addEventListener('click', () => {
+          let count = parseInt(countEl.textContent);
+          if (count > 0) {
+            countEl.textContent = count - 1;
             updateURL();
-          });
-        }
-
-        return wrapper;
-      }
-
-      function setupCounters(container) {
-        container.querySelectorAll('.counter').forEach(counter => {
-          const decrementBtn = counter.querySelector('.decrement');
-          const incrementBtn = counter.querySelector('.increment');
-          const countEl = counter.querySelector('.personCount, .childCount');
-
-          decrementBtn.addEventListener('click', () => {
-            let count = parseInt(countEl.textContent);
-            if (count > 0) {
-              countEl.textContent = count - 1;
-              updateURL();
-            }
-          });
-
-          incrementBtn.addEventListener('click', () => {
-            let count = parseInt(countEl.textContent);
-            countEl.textContent = count + 1;
-            updateURL();
-          });
-        });
-      }
-
-      function applyChanges() {
-        let totalPeople = 0;
-        let totalRooms = modalContentContainer.children.length;
-
-        modalContentContainer.querySelectorAll('.personCount, .childCount').forEach(countEl => {
-          totalPeople += parseInt(countEl.textContent);
-        });
-
-        peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
-        roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
-
-        updateURL();
-      }
-
-      function updateURL() {
-        let urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('rooms', modalContentContainer.children.length);
-
-        modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
-          const adults = room.querySelector('.personCount').textContent;
-          const kids = room.querySelector('.childCount').textContent;
-          urlParams.set(`room${index + 1}adults`, adults);
-          urlParams.set(`room${index + 1}kids`, kids);
-        });
-
-        history.replaceState(null, '', '?' + urlParams.toString());
-      }
-
-      // Update URL when clicking the availability button
-      availabilityButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        applyChanges();
-      });
-
-      function updateRoomNumbers() {
-        modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
-          const header = room.querySelector('.modal-header');
-
-          // Update the room title
-          header.childNodes[2].nodeValue = `Hab. Cabaña ${index + 1}`;
-
-          // Check if the remove button exists or needs to be added/removed
-          let removeBtn = header.querySelector('.remove-room');
-          if (index === 0) {
-            // For the first room, remove the button if it exists
-            if (removeBtn) removeBtn.remove();
-          } else {
-            // For other rooms, add the remove button if not present
-            if (!removeBtn) {
-              removeBtn = document.createElement('button');
-              removeBtn.className = 'remove-room';
-              removeBtn.textContent = '×';
-              removeBtn.addEventListener('click', function () {
-                room.remove();
-                updateRoomNumbers();
-                updateURL();
-              });
-              header.appendChild(removeBtn);
-            }
           }
         });
-      }
 
-      // Initialize URL with default values
+        incrementBtn.addEventListener('click', () => {
+          let count = parseInt(countEl.textContent);
+          countEl.textContent = count + 1;
+          updateURL();
+        });
+      });
+    }
+
+    function applyChanges() {
+      let totalPeople = 0;
+      let totalRooms = modalContentContainer.children.length;
+
+      modalContentContainer.querySelectorAll('.personCount, .childCount').forEach(countEl => {
+        totalPeople += parseInt(countEl.textContent);
+      });
+
+      peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
+      roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
+
       updateURL();
-    });
-  </script>
+    }
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    function updateURL() {
+      let urlParams = new URLSearchParams(window.location.search);
+      urlParams.set('rooms', modalContentContainer.children.length);
+
+      modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
+        const adults = room.querySelector('.personCount').textContent;
+        const kids = room.querySelector('.childCount').textContent;
+        urlParams.set(`room${index + 1}adults`, adults);
+        urlParams.set(`room${index + 1}kids`, kids);
+      });
+
+      history.replaceState(null, '', '?' + urlParams.toString());
+    }
+
+    // Update URL when clicking the availability button
+    availabilityButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      applyChanges();
+      updateURL(); // Ensure URL is updated when button is clicked
+      modal.style.display = 'none'; // Close the modal
+    });
+
+    function updateRoomNumbers() {
+      modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
+        const header = room.querySelector('.modal-header');
+
+        // Update the room title
+        header.childNodes[2].nodeValue = `Hab. Cabaña ${index + 1}`;
+
+        // Check if the remove button exists or needs to be added/removed
+        let removeBtn = header.querySelector('.remove-room');
+        if (index === 0) {
+          // For the first room, remove the button if it exists
+          if (removeBtn) removeBtn.remove();
+        } else {
+          // For other rooms, add the remove button if not present
+          if (!removeBtn) {
+            removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-room';
+            removeBtn.textContent = '×';
+            removeBtn.addEventListener('click', function () {
+              room.remove();
+              updateRoomNumbers();
+              updateURL();
+            });
+            header.appendChild(removeBtn);
+          }
+        }
+      });
+    }
+
+    // Initialize URL with default values on page load
+    updateURL(); // This ensures the URL is updated with default values when the page is loaded
+  });
+</script>
+
+
+
 
   <!-- Initialize Slick slider with AsNavFor -->
   <script type="text/javascript">
@@ -787,7 +819,25 @@
         arrows: false,  // Disable arrows in the thumbnail slider
         responsive: [
           {
+            breakpoint: 1200,
+            settings: {
+              slidesToShow: 5
+            }
+          },
+          {
+            breakpoint: 992,
+            settings: {
+              slidesToShow: 5
+            }
+          },
+          {
             breakpoint: 768,
+            settings: {
+              slidesToShow: 4
+            }
+          },
+          {
+            breakpoint: 550,
             settings: {
               slidesToShow: 5
             }
@@ -843,33 +893,30 @@
     });
   });
 </script>
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-      const header = document.querySelector('.navbar');
-      const logoImg = document.querySelector('.navbar-logo-img');
-      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-      const mobileMenuToggleSpans = document.querySelectorAll('.mobile-menu-toggle span');
-      const sidebar = document.querySelector('.nav-buttons'); // Assuming this is your sidebar
+ <script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const header = document.querySelector('.navbar');
+    const logoImg = document.querySelector('.navbar-logo-img');
+    const mobileMenuToggleSpans = document.querySelectorAll('.mobile-menu-toggle span');
 
-      // Listen to the scroll event
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 1) {
-          header.style.backgroundColor = '#fff'; // Change background to white
-          logoImg.src = './img/logo-black.png.png'; // Change logo to black
-          mobileMenuToggleSpans.forEach(span => {
-            span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
-          });
-        } else {
-          header.style.backgroundColor = 'transparent'; // Change back to transparent
-          logoImg.src = './img/logo-white.png'; // Change logo to white
-          mobileMenuToggleSpans.forEach(span => {
-            span.style.backgroundColor = ''; // Reset to default color (presumably white)
-          });
-        }
-      });
-
-
-  </script>
+    // Listen to the scroll event
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 1) {
+        header.style.backgroundColor = '#fff'; // Change background to white
+        logoImg.src = './img/logo-black.png'; // Change logo to black
+        mobileMenuToggleSpans.forEach(span => {
+          span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
+        });
+      } else {
+        header.style.backgroundColor = 'transparent'; // Change back to transparent
+        logoImg.src = './img/logo-white.png'; // Change logo to white
+        mobileMenuToggleSpans.forEach(span => {
+          span.style.backgroundColor = ''; // Reset to default color (presumably white)
+        });
+      }
+    });
+  });
+</script>
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       const tripDetailsModal = document.getElementById('tripDetailsModal');
