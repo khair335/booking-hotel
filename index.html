@@ -110,16 +110,16 @@
 
       <div class="cabana-info-container">
         <div class="cabana-info">
-         <div class="tabs-container">
-  <div class="tabs">
-    <a href="#section-1" class="active">Descripción cabañas</a>
-    <a href="#section-2">Servicios</a>
-    <a href="#section-3">Imágenes</a>
-    <a href="#section-4">Ubicación</a>
-  </div>
-</div>
+          <div class="tabs-container">
+            <div class="tabs">
+              <a href="#section-1" class="active">Descripción cabañas</a>
+              <a href="#section-2">Servicios</a>
+              <a href="#section-3">Imágenes</a>
+              <a href="#section-4">Ubicación</a>
+            </div>
+          </div>
 
-          <div id="section-1" class="description">
+          <section id="section-1" class="description">
             <div class="paragraph-container">
               <h2 class="paragraph-title">Que encontrarás en las Cabañas Cocos Curá</h2>
               <p class="paragraph-text">Situadas en el famoso barrio de Llao Llao, las Cabañas Cocos Curá son unas
@@ -131,6 +131,8 @@
                 todos los utensilios para hasta 6 personas y baño privado con bañera. En el complejo de Cabañas Cocos
                 Curá algunas cabañas cuentan con una amplia terraza con vistas, otras con u pequeño patio o
                 balcón. .</p>
+
+
             </div>
 
 
@@ -138,7 +140,7 @@
             <!-- slick slider -->
 
 
-          </div>
+          </section>
 
 
           <section id="section-2" class="services-section">
@@ -198,8 +200,9 @@
               </div>
             </div>
           </section>
-          <section id="section-4" class="description">
+          <section id="section-4" class=" ">
             <!-- map container -->
+            <h2 class="paragraph-title">Ubicación de las Cabañas Cocos Cura</h2>
             <div class="map-wrapper">
               <div class="custom-info-box">
                 <div>
@@ -410,127 +413,128 @@
 
   </script>
 
- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-  const sections = document.querySelectorAll('section'); // Ensure these sections have matching IDs
-  const tabs = document.querySelectorAll('.tabs a');
-
-  // Log sections and tabs to confirm everything is correct
-  console.log('Sections:', sections);
-  console.log('Tabs:', tabs);
-
-  // Manually activate the first tab on page load
-  tabs.forEach(tab => tab.classList.remove('active')); // Remove active class from all tabs initially
-  tabs[0].classList.add('active'); // Set the first tab as active by default
-
-  // Create an intersection observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        console.log(`Section ${entry.target.id} is intersecting`);
-
-        // Remove 'active' class from all tabs
-        tabs.forEach(tab => tab.classList.remove('active'));
-
-        // Find the tab associated with the visible section
-        const activeTab = document.querySelector(`.tabs a[href="#${entry.target.id}"]`);
-
-        if (activeTab) {
-          activeTab.classList.add('active');
-          console.log(`Activated tab for section ${entry.target.id}`);
-        } else {
-          console.error(`No matching tab found for section ${entry.target.id}`);
-        }
-      }
-    });
-  }, {
-    threshold: 0.4 // 40% of the section must be visible to trigger
-  });
-
-  // Observe each section
-  sections.forEach(section => {
-    if (section.id) {
-      observer.observe(section);
-      console.log(`Observing section: ${section.id}`);
-    } else {
-      console.error('Section found without an id:', section);
-    }
-  });
-
-  // Add click event listeners to the tabs for smooth scrolling
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href').slice(1); // Get the target section ID from href
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        console.log(`Scrolling to section ${targetId}`);
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        console.error(`Target section ${targetId} not found`);
-      }
-    });
-  });
-});
-
-</script>
-
-  <script type="text/javascript">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script>
     document.addEventListener('DOMContentLoaded', function () {
-      let lastScrollTop = 0;
-      const header = document.querySelector('header');
-      const tabs = document.querySelector('.tabs');
+      const sections = document.querySelectorAll('section'); // Ensure these sections have matching IDs
+      const tabs = document.querySelectorAll('.tabs a');
 
-      // Get header and tabs height dynamically after the page has fully loaded
-      function getHeaderHeight() {
-        return header ? header.offsetHeight : 0;
-      }
 
-      function getTabsHeight() {
-        return tabs ? tabs.offsetHeight : 0;
-      }
 
-      // Event listener for clicking on tab links
-      document.querySelectorAll('.tabs a').forEach(link => {
-        link.addEventListener('click', function (e) {
+      // Manually activate the first tab on page load
+      tabs.forEach(tab => tab.classList.remove('active')); // Remove active class from all tabs initially
+      tabs[0].classList.add('active'); // Set the first tab as active by default
+
+      // Create an intersection observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+
+
+            // Remove 'active' class from all tabs
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Find the tab associated with the visible section
+            const activeTab = document.querySelector(`.tabs a[href="#${entry.target.id}"]`);
+
+            if (activeTab) {
+              activeTab.classList.add('active');
+
+            } else {
+
+            }
+          }
+        });
+      }, {
+        threshold: 0.6 // 40% of the section must be visible to trigger
+      });
+
+      // Observe each section
+      sections.forEach(section => {
+        if (section.id) {
+          observer.observe(section);
+          console.log(`Observing section: ${section.id}`);
+        } else {
+          console.error('Section found without an id:', section);
+        }
+      });
+
+      // Add click event listeners to the tabs for smooth scrolling
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function (e) {
           e.preventDefault();
-          const targetId = this.getAttribute('href').slice(1);
+          const targetId = this.getAttribute('href').slice(1); // Get the target section ID from href
           const targetElement = document.getElementById(targetId);
 
           if (targetElement) {
-            // Scroll to the section, accounting for both header and tabs heights
-            const headerHeight = getHeaderHeight();
-            const tabsHeight = getTabsHeight();
-
-            window.scrollTo({
-              top: targetElement.offsetTop - headerHeight - tabsHeight,
-              behavior: 'smooth'
-            });
+            console.log(`Scrolling to section ${targetId}`);
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            console.error(`Target section ${targetId} not found`);
           }
         });
-      });
-
-      // Sticky behavior for .tabs when scrolling up and down
-      window.addEventListener('scroll', function () {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const headerHeight = getHeaderHeight();
-        const tabsHeight = getTabsHeight();
-
-        if (scrollTop > lastScrollTop) {
-          // Scrolling down - stick tabs to the very top
-          tabs.style.top = `0px`;
-        } else {
-          // Scrolling up - leave space for both navbar and tabs
-          tabs.style.top = `${headerHeight}px`;
-        }
-
-        lastScrollTop = scrollTop;
       });
     });
 
   </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sections = document.querySelectorAll('section');
+    const tabs = document.querySelectorAll('.tabs a');
+
+    // Manually activate the first tab on page load
+    tabs.forEach(tab => tab.classList.remove('active')); // Remove active class from all tabs initially
+    if (tabs.length > 0) {
+      tabs[0].classList.add('active'); // Set the first tab as active by default
+    }
+
+    // Create an intersection observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Remove 'active' class from all tabs
+          tabs.forEach(tab => tab.classList.remove('active'));
+
+          // Find the tab associated with the visible section
+          const activeTab = document.querySelector(`.tabs a[href="#${entry.target.id}"]`);
+          if (activeTab) {
+            activeTab.classList.add('active');
+          }
+        }
+      });
+    }, {
+      threshold: 0.6 // 60% of the section must be visible to trigger
+    });
+
+    // Observe each section
+    sections.forEach(section => {
+      if (section.id) {
+        observer.observe(section);
+      }
+    });
+
+    // Add click event listeners to the tabs for smooth scrolling
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').slice(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+
+          // Manually set the clicked tab as active
+          tabs.forEach(tab => tab.classList.remove('active'));
+          this.classList.add('active');
+        }
+      });
+    });
+  });
+</script>
+
+
+
   <script type="text/javascript">
     const header = document.querySelector('header.top-nav');
 
@@ -548,6 +552,9 @@
 
 
   </script>
+
+
+
   <script type="text/javascript">
     $(function () {
       $('.date-selection').daterangepicker({
@@ -611,50 +618,50 @@
 
 
   <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-    const tripDetails = document.querySelector('.trip-details');
-    const modal = document.getElementById('tripDetailsModal');
-    const closeBtn = modal.querySelector('.modal-close');
-    const modalContentContainer = document.getElementById('modalContentContainer');
-    const addRoomBtn = document.getElementById('addRoom');
-    const peopleTextEl = document.querySelector('.people-text');
-    const roomTextEl = document.querySelector('.room-text');
-    const availabilityButton = document.getElementById('availability-button-modal-close');
+    document.addEventListener('DOMContentLoaded', function () {
+      const tripDetails = document.querySelector('.trip-details');
+      const modal = document.getElementById('tripDetailsModal');
+      const closeBtn = modal.querySelector('.modal-close');
+      const modalContentContainer = document.getElementById('modalContentContainer');
+      const addRoomBtn = document.getElementById('addRoom');
+      const peopleTextEl = document.querySelector('.people-text');
+      const roomTextEl = document.querySelector('.room-text');
+      const availabilityButton = document.getElementById('availability-button-modal-close');
 
-    // Open modal
-    tripDetails.addEventListener('click', function () {
-      modal.style.display = 'flex';
-    });
+      // Open modal
+      tripDetails.addEventListener('click', function () {
+        modal.style.display = 'flex';
+      });
 
-    // Close modal
-    closeBtn.addEventListener('click', function () {
-      modal.style.display = 'none';
-      applyChanges();
-    });
-
-    // Close modal if clicked outside
-    window.addEventListener('click', function (event) {
-      if (event.target == modal) {
+      // Close modal
+      closeBtn.addEventListener('click', function () {
         modal.style.display = 'none';
         applyChanges();
-      }
-    });
+      });
 
-    // Setup initial counters
-    setupCounters(modalContentContainer);
+      // Close modal if clicked outside
+      window.addEventListener('click', function (event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+          applyChanges();
+        }
+      });
 
-    // Add new room
-    addRoomBtn.addEventListener('click', function () {
-      const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
-      modalContentContainer.appendChild(newWrapper);
-      setupCounters(newWrapper);
-      updateRoomNumbers(); // Update room numbers after adding a room
-    });
+      // Setup initial counters
+      setupCounters(modalContentContainer);
 
-    function createModalContentWrapper(roomNumber) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'modal-content-wrapper-container';
-      wrapper.innerHTML = `
+      // Add new room
+      addRoomBtn.addEventListener('click', function () {
+        const newWrapper = createModalContentWrapper(modalContentContainer.children.length + 1);
+        modalContentContainer.appendChild(newWrapper);
+        setupCounters(newWrapper);
+        updateRoomNumbers(); // Update room numbers after adding a room
+      });
+
+      function createModalContentWrapper(roomNumber) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'modal-content-wrapper-container';
+        wrapper.innerHTML = `
         <div class="modal-header">
           <img src="./img/home.svg" alt="home" class="modal-icon">
           Hab. Cabaña ${roomNumber}
@@ -688,108 +695,108 @@
         </div>
       `;
 
-      // Add event listener for remove button
-      const removeBtn = wrapper.querySelector('.remove-room');
-      if (removeBtn) {
-        removeBtn.addEventListener('click', function () {
-          wrapper.remove();
-          updateRoomNumbers(); // Update room numbers after removing a room
-          updateURL(); // Update URL after removing a room
+        // Add event listener for remove button
+        const removeBtn = wrapper.querySelector('.remove-room');
+        if (removeBtn) {
+          removeBtn.addEventListener('click', function () {
+            wrapper.remove();
+            updateRoomNumbers(); // Update room numbers after removing a room
+            updateURL(); // Update URL after removing a room
+          });
+        }
+
+        return wrapper;
+      }
+
+      function setupCounters(container) {
+        container.querySelectorAll('.counter').forEach(counter => {
+          const decrementBtn = counter.querySelector('.decrement');
+          const incrementBtn = counter.querySelector('.increment');
+          const countEl = counter.querySelector('.personCount, .childCount');
+
+          decrementBtn.addEventListener('click', () => {
+            let count = parseInt(countEl.textContent);
+            if (count > 0) {
+              countEl.textContent = count - 1;
+            }
+          });
+
+          incrementBtn.addEventListener('click', () => {
+            let count = parseInt(countEl.textContent);
+            countEl.textContent = count + 1;
+          });
         });
       }
 
-      return wrapper;
-    }
+      function applyChanges() {
+        let totalPeople = 0;
+        let totalRooms = modalContentContainer.children.length;
 
-    function setupCounters(container) {
-      container.querySelectorAll('.counter').forEach(counter => {
-        const decrementBtn = counter.querySelector('.decrement');
-        const incrementBtn = counter.querySelector('.increment');
-        const countEl = counter.querySelector('.personCount, .childCount');
+        modalContentContainer.querySelectorAll('.personCount, .childCount').forEach(countEl => {
+          totalPeople += parseInt(countEl.textContent);
+        });
 
-        decrementBtn.addEventListener('click', () => {
-          let count = parseInt(countEl.textContent);
-          if (count > 0) {
-            countEl.textContent = count - 1;
+        peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
+        roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
+      }
+
+      function updateURL() {
+        let urlParams = new URLSearchParams();
+
+        // Add or update the room-related parameters
+        urlParams.set('rooms', modalContentContainer.children.length);
+        modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
+          const adults = room.querySelector('.personCount').textContent;
+          const kids = room.querySelector('.childCount').textContent;
+          urlParams.set(`room${index + 1}adults`, adults);
+          urlParams.set(`room${index + 1}kids`, kids);
+        });
+
+        // Construct the new URL with updated parameters
+        const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+
+        // Update the URL without reloading the page
+        history.replaceState(null, '', newUrl);
+      }
+
+      // Update URL when clicking the availability button
+      availabilityButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        applyChanges();
+        updateURL(); // Ensure URL is updated when button is clicked
+        modal.style.display = 'none'; // Close the modal
+      });
+
+      function updateRoomNumbers() {
+        modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
+          const header = room.querySelector('.modal-header');
+
+          // Update the room title
+          header.childNodes[2].nodeValue = `Hab. Cabaña ${index + 1}`;
+
+          // Check if the remove button exists or needs to be added/removed
+          let removeBtn = header.querySelector('.remove-room');
+          if (index === 0) {
+            // For the first room, remove the button if it exists
+            if (removeBtn) removeBtn.remove();
+          } else {
+            // For other rooms, add the remove button if not present
+            if (!removeBtn) {
+              removeBtn = document.createElement('button');
+              removeBtn.className = 'remove-room';
+              removeBtn.textContent = '×';
+              removeBtn.addEventListener('click', function () {
+                room.remove();
+                updateRoomNumbers();
+                updateURL(); // Update URL after removing a room
+              });
+              header.appendChild(removeBtn);
+            }
           }
         });
-
-        incrementBtn.addEventListener('click', () => {
-          let count = parseInt(countEl.textContent);
-          countEl.textContent = count + 1;
-        });
-      });
-    }
-
-    function applyChanges() {
-      let totalPeople = 0;
-      let totalRooms = modalContentContainer.children.length;
-
-      modalContentContainer.querySelectorAll('.personCount, .childCount').forEach(countEl => {
-        totalPeople += parseInt(countEl.textContent);
-      });
-
-      peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
-      roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
-    }
-
-    function updateURL() {
-      let urlParams = new URLSearchParams();
-
-      // Add or update the room-related parameters
-      urlParams.set('rooms', modalContentContainer.children.length);
-      modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
-        const adults = room.querySelector('.personCount').textContent;
-        const kids = room.querySelector('.childCount').textContent;
-        urlParams.set(`room${index + 1}adults`, adults);
-        urlParams.set(`room${index + 1}kids`, kids);
-      });
-
-      // Construct the new URL with updated parameters
-      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
-
-      // Update the URL without reloading the page
-      history.replaceState(null, '', newUrl);
-    }
-
-    // Update URL when clicking the availability button
-    availabilityButton.addEventListener('click', function (event) {
-      event.preventDefault();
-      applyChanges();
-      updateURL(); // Ensure URL is updated when button is clicked
-      modal.style.display = 'none'; // Close the modal
+      }
     });
-
-    function updateRoomNumbers() {
-      modalContentContainer.querySelectorAll('.modal-content-wrapper-container').forEach((room, index) => {
-        const header = room.querySelector('.modal-header');
-
-        // Update the room title
-        header.childNodes[2].nodeValue = `Hab. Cabaña ${index + 1}`;
-
-        // Check if the remove button exists or needs to be added/removed
-        let removeBtn = header.querySelector('.remove-room');
-        if (index === 0) {
-          // For the first room, remove the button if it exists
-          if (removeBtn) removeBtn.remove();
-        } else {
-          // For other rooms, add the remove button if not present
-          if (!removeBtn) {
-            removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-room';
-            removeBtn.textContent = '×';
-            removeBtn.addEventListener('click', function () {
-              room.remove();
-              updateRoomNumbers();
-              updateURL(); // Update URL after removing a room
-            });
-            header.appendChild(removeBtn);
-          }
-        }
-      });
-    }
-  });
-</script>
+  </script>
 
 
 
@@ -857,64 +864,64 @@
       // });
     });
   </script>
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileSidebar = document.querySelector('.mobile-sidebar');
-    const sidebarClose = document.querySelector('.sidebar-close');
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const mobileSidebar = document.querySelector('.mobile-sidebar');
+      const sidebarClose = document.querySelector('.sidebar-close');
 
-    mobileMenuToggle.addEventListener('click', function() {
-      mobileSidebar.classList.toggle('active');
-    });
+      mobileMenuToggle.addEventListener('click', function () {
+        mobileSidebar.classList.toggle('active');
+      });
 
-    sidebarClose.addEventListener('click', function() {
-      mobileSidebar.classList.remove('active'); // Close the sidebar
-    });
-  });
-</script>
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-    const mobileSidebar = document.querySelector('.mobile-sidebar');
-    const sidebarClose = document.querySelector('.sidebar-close');
-    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
-
-    // Close sidebar when clicking the close button
-    sidebarClose.addEventListener('click', function() {
-      mobileSidebar.classList.remove('active');
-    });
-
-    // Close sidebar when clicking any link
-    sidebarLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        mobileSidebar.classList.remove('active');
+      sidebarClose.addEventListener('click', function () {
+        mobileSidebar.classList.remove('active'); // Close the sidebar
       });
     });
-  });
-</script>
- <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-    const header = document.querySelector('.navbar');
-    const logoImg = document.querySelector('.navbar-logo-img');
-    const mobileMenuToggleSpans = document.querySelectorAll('.mobile-menu-toggle span');
+  </script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileSidebar = document.querySelector('.mobile-sidebar');
+      const sidebarClose = document.querySelector('.sidebar-close');
+      const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
 
-    // Listen to the scroll event
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 1) {
-        header.style.backgroundColor = '#fff'; // Change background to white
-        logoImg.src = './img/logo-black.png'; // Change logo to black
-        mobileMenuToggleSpans.forEach(span => {
-          span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
+      // Close sidebar when clicking the close button
+      sidebarClose.addEventListener('click', function () {
+        mobileSidebar.classList.remove('active');
+      });
+
+      // Close sidebar when clicking any link
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', function () {
+          mobileSidebar.classList.remove('active');
         });
-      } else {
-        header.style.backgroundColor = 'transparent'; // Change back to transparent
-        logoImg.src = './img/logo-white.png'; // Change logo to white
-        mobileMenuToggleSpans.forEach(span => {
-          span.style.backgroundColor = ''; // Reset to default color (presumably white)
-        });
-      }
+      });
     });
-  });
-</script>
+  </script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const header = document.querySelector('.navbar');
+      const logoImg = document.querySelector('.navbar-logo-img');
+      const mobileMenuToggleSpans = document.querySelectorAll('.mobile-menu-toggle span');
+
+      // Listen to the scroll event
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 1) {
+          header.style.backgroundColor = '#fff'; // Change background to white
+          logoImg.src = './img/logo-black.png'; // Change logo to black
+          mobileMenuToggleSpans.forEach(span => {
+            span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
+          });
+        } else {
+          header.style.backgroundColor = 'transparent'; // Change back to transparent
+          logoImg.src = './img/logo-white.png'; // Change logo to white
+          mobileMenuToggleSpans.forEach(span => {
+            span.style.backgroundColor = ''; // Reset to default color (presumably white)
+          });
+        }
+      });
+    });
+  </script>
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       const tripDetailsModal = document.getElementById('tripDetailsModal');
