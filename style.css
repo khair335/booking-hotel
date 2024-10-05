@@ -1875,7 +1875,7 @@ iframe {
   }
 
   .f-space {
-    display: none;
+    display: block;
   }
 
   .navbar {
