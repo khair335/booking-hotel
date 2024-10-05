@@ -70,8 +70,8 @@
         </div>
 
         <input class="hamburger-button" type="checkbox" id="hamburger-button" />
-        <label for="hamburger-button">
-          <div></div>
+       <label for="hamburger-button">
+         <div></div>
         </label>
 
         <div class="menu">
@@ -690,7 +690,26 @@
           applyChanges();
         }
       });
+      function applyChanges() {
+        let totalPeople = 0;
+        let totalRooms = modalContentContainer.children.length;
 
+        // Calculate total people
+        modalContentContainer.querySelectorAll('.personCount, .childCount').forEach(countEl => {
+          totalPeople += parseInt(countEl.textContent) || 0; // Ensure we handle NaN
+        });
+
+        // Update the text elements with the new counts
+        if (peopleTextEl && roomTextEl) {
+          peopleTextEl.textContent = `${totalPeople} Persona${totalPeople !== 1 ? 's' : ''}`;
+          roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
+        } else {
+          console.error("Element(s) not found: peopleTextEl or roomTextEl");
+        }
+
+        // Update URL after applying changes
+        updateURL();
+      }
       // Setup initial counters
       setupCounters(modalContentContainer);
 
@@ -705,6 +724,7 @@
       // Call updateURL when availabilityButton is clicked
       availabilityButton.addEventListener('click', function () {
         updateURL();
+        applyChanges();
       });
 
       function createModalContentWrapper(roomNumber) {
@@ -837,41 +857,7 @@
         });
       }
 
-function applyChanges() {
-    let totalAdults = 0;
-    let totalChildren = 0;
-    let totalRooms = modalContentContainer.children.length;
 
-    // Calculate total adults and children
-    modalContentContainer.querySelectorAll('.personCount').forEach(countEl => {
-        totalAdults += parseInt(countEl.textContent);
-    });
-
-    modalContentContainer.querySelectorAll('.childCount').forEach(countEl => {
-        totalChildren += parseInt(countEl.textContent);
-    });
-
-    let totalPeople = totalAdults + totalChildren;
-
-    console.log("Total Adults:", totalAdults, "Total Children:", totalChildren, "Total People:", totalPeople);
-
-    // Ensure elements are selected correctly
-    console.log("peopleTextEl:", peopleTextEl, "roomTextEl:", roomTextEl);
-
-    // Update the text elements with the new counts
-    if (peopleTextEl && roomTextEl) {
-        peopleTextEl.textContent = `${totalAdults} Adult${totalAdults !== 1 ? 's' : ''}, ${totalChildren} Child${totalChildren !== 1 ? 'ren' : ''}`;
-        roomTextEl.textContent = `${totalRooms} Hab. / Cabaña${totalRooms > 1 ? 's' : ''}`;
-    } else {
-        console.error("Element(s) not found: peopleTextEl or roomTextEl");
-    }
-
-    // Update URL after applying changes
-    updateURL();
-
-    // Close the modal after applying changes
-    closeModal();
-}
     });
 
 
@@ -977,62 +963,32 @@ function applyChanges() {
   </script>
 
 
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-      const header = document.querySelector('.top-nav'); // Updated to match your HTML
-      const logoImg = document.querySelector('.top-nav-logo img'); // Updated to match your HTML
-      const mobileMenuToggleSpans = document.querySelectorAll('.hamburger-button + label div');
-      const navLinks = document.querySelectorAll('header .container .menu nav ul > li > a, header .container .menu nav ul > li > label');
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const header = document.querySelector('.top-nav');
+    const logoImg = document.querySelector('.top-nav-logo img');
+    const mobileMenuToggleLabel = document.querySelector('.hamburger-button + label');
+    const navLinks = document.querySelectorAll('header .container .menu nav ul > li > a, header .container .menu nav ul > li > label');
 
-      // Listen to the scroll event
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 1) {
-          header.style.backgroundColor = '#fff'; // Change background to white
-          logoImg.src = './img/logo-black.png'; // Change logo to black
-          mobileMenuToggleSpans.forEach(span => {
-            span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
-          });
-          navLinks.forEach(link => {
-            link.style.color = 'black'; // Change nav link color to black
-          });
-        } else {
-          header.style.backgroundColor = 'transparent'; // Change back to transparent
-          logoImg.src = './img/logo-white.png'; // Change logo to white
-          mobileMenuToggleSpans.forEach(span => {
-            span.style.backgroundColor = ''; // Reset to default color (presumably white)
-          });
-          navLinks.forEach(link => {
-            link.style.color = ''; // Reset nav link color to default
-          });
-        }
-      });
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 1) {
+        header.style.backgroundColor = '#fff';
+        logoImg.src = './img/logo-black.png';
+        mobileMenuToggleLabel.classList.add('active'); // Add active class
+        navLinks.forEach(link => {
+          link.style.color = 'black';
+        });
+      } else {
+        header.style.backgroundColor = 'transparent';
+        logoImg.src = './img/logo-white.png';
+        mobileMenuToggleLabel.classList.remove('active'); // Remove active class
+        navLinks.forEach(link => {
+          link.style.color = ''; // Reset nav link color to default
+        });
+      }
     });
-  </script>
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-      const header = document.querySelector('.top-nav'); // Updated to match your HTML
-      const logoImg = document.querySelector('.top-nav-logo img'); // Updated to match your HTML
-      const mobileMenuToggleSpans = document.querySelectorAll('.hamburger-button + label div');
-
-      // Listen to the scroll event
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 1) {
-          header.style.backgroundColor = '#fff'; // Change background to white
-          logoImg.src = './img/logo-black.png'; // Change logo to black
-          mobileMenuToggleSpans.forEach(span => {
-            span.style.backgroundColor = 'black'; // Change mobile menu toggle color to black
-          });
-        } else {
-          header.style.backgroundColor = 'transparent'; // Change back to transparent
-          logoImg.src = './img/logo-white.png'; // Change logo to white
-          mobileMenuToggleSpans.forEach(span => {
-            span.style.backgroundColor = ''; // Reset to default color (presumably white)
-          });
-        }
-      });
-    });
-  </script>
-
+  });
+</script>
 
 
   <script type="text/javascript">
