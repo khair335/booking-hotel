@@ -64,7 +64,7 @@ header.top-nav {
   top: 0;
   height: 56px;
   width: 100%;
-  z-index: 1000;
+  z-index: 1004;
   transition: top 0.3s ease-in-out;
   background: #6f6b6b40;
   border-bottom: 1px solid #ddd;
@@ -212,8 +212,21 @@ input.hamburger-button~label>div::before {
   height: .125rem;
   width: 1.5rem;
   opacity: 1;
-  background: #2b4054;
+  background: #fff;
   transition: 0.14s ease-in-out
+}
+
+input.hamburger-button~label.active > div:before{
+     background: #2b4054;
+}
+input.hamburger-button~label.active > div:after{
+     background: #2b4054;
+}
+input.hamburger-button~label.active > div{
+     background: #2b4054;
+}
+input.hamburger-button~label.active > div:after{
+     background: #2b4054;
 }
 
 input.hamburger-button~label>div::before {
@@ -1697,6 +1710,8 @@ iframe {
   z-index: 10;
 
 }
+
+
 
 .mobile-modal-container {
   display: none;

@@ -312,8 +312,7 @@
 
 
               </div>
-              <a href="reservar.cabañasbariloche.com.ar?in=2024-10-25&out=in=2024-10-27&rooms=1&room1adults=2&room1kids=0"
-                class="availability-button-main">Ver disponibilidad</a>
+              <button class="availability-button-main">Ver disponibilidad</button>
             </div>
           </div>
         </div>
@@ -1102,6 +1101,43 @@
       arrivalDateElement.textContent = formatDate(checkInDate);
       departureDateElement.textContent = formatDate(checkOutDate);
     });
+  </script>
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const availabilityButtonMain = document.querySelector('.availability-button-main');
+      const availabilityButtonModalClose = document.querySelector('#availability-button-modal-close');
+      availabilityButtonMain.addEventListener('click', function () {
+        navigateToReservation();
+      });
+      availabilityButtonModalClose.addEventListener('click', function () {
+        if (window.innerWidth <= 768) { // Check if it's a mobile device
+          navigateToReservation();
+        } else {
+          closeModal(); // Assuming there's a closeModal function for non-mobile devices
+        }
+      });
+    });
+
+    function navigateToReservation() {
+      const mainUrl = window.location.origin;
+      console.log("mainUrl", mainUrl);
+      let currentParams = new URLSearchParams(window.location.search);
+
+      if (currentParams.toString() === '') {
+        // Generate new params if there are none
+        const today = new Date();
+        const checkInDate = today.toISOString().split('T')[0];
+        const checkOutDate = new Date(today.setDate(today.getDate() + 7)).toISOString().split('T')[0];
+
+        currentParams.set('checkin', checkInDate);
+        currentParams.set('checkout', checkOutDate);
+        currentParams.set('adults', '2');
+        currentParams.set('children', '0');
+      }
+
+      console.log("currentParams", currentParams.toString());
+      window.location.href = `http://reservar.xn--cabaasbariloche-1qb.com.ar?${currentParams.toString()}`;
+    }
   </script>
 </body>
 
